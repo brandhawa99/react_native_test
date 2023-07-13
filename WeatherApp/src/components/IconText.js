@@ -6,12 +6,22 @@ const IconText = (props) => {
   const {msg, icon, size, color} = props
 
   return (
-    <View>
+    <View style={styles.container}>
       <Feather name={icon || "smile"} size={size} color={color || "black"} />
-      <Text>{msg}</Text>
+      <Text style={styles.txt}>{msg}</Text>
     </View>
   )
 
 }
+
+const styles = StyleSheet.create({
+  container:{
+    alignItems:"center"
+  },
+  txt:{
+    fontSize:25,
+    fontWeight:"500"
+  }
+})
 
 export default IconText
