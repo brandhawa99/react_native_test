@@ -1,5 +1,5 @@
-import { SafeAreaView, StyleSheet, Text, Button, View, TextInput } from 'react-native';
-import {addListener, useKeepAwake} from 'expo-keep-awake'
+import { SafeAreaView, StyleSheet, Button, View, TextInput } from 'react-native';
+import {useKeepAwake} from 'expo-keep-awake'
 import React, { useState } from 'react';
 import { Audio } from 'expo-av'
 import PlayRecording from './src/components/PlayRecording';
@@ -46,7 +46,6 @@ export default function App() {
     console.log('Recording stopped and stored at', uri);
 
   }
-  // TODO: On save move audio file from cache to document directory
   const saveToDirectory = async() =>{
     try{
       const dirInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory+directoryName);
