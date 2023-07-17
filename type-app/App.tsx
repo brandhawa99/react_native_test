@@ -1,122 +1,51 @@
-import { SafeAreaView, StyleSheet, Button, View, TextInput } from 'react-native';
+import React from 'react';
 import {useKeepAwake} from 'expo-keep-awake'
-import React, { useState } from 'react';
-import { Audio } from 'expo-av'
-import PlayRecording from './src/components/PlayRecording';
-import * as FileSystem from 'expo-file-system'
-
+import UserInputs from './src/screens/UserInputs';
+import Settings from './src/screens/Settings';
+import { NavigationContainer} from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import {Ionicons,MaterialCommunityIcons, AntDesign, Entypo } from '@expo/vector-icons';
+import Recordings from './src/screens/Recordings';
+const Tab = createBottomTabNavigator();
 export default function App() {
   useKeepAwake();
-  const directoryName = "amar"
-  const [link, setLink] = useState<any>();
-
-  const [recording, setRecording] = useState<any>();
-  const [userName, setName] = useState<any>();
-
-  async function startRecording() {
-    try {
-      console.log('Requesting permissions..');
-      await Audio.requestPermissionsAsync();
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
-      });
-
-      console.log('Starting recording..');
-      const { recording } = await Audio.Recording.createAsync( Audio.RecordingOptionsPresets.HIGH_QUALITY
-      );
-      setRecording(recording);
-      console.log('Recording started');
-    } catch (err) {
-      console.error('Failed to start recording', err);
-    }
-  }
-
-  async function stopRecording() {
-    console.log('Stopping recording..');
-    setRecording(undefined);
-    await recording.stopAndUnloadAsync();
-    await Audio.setAudioModeAsync(
-      {
-        allowsRecordingIOS: false,
-      }
-    );
-    const uri = recording.getURI();
-    setLink(uri);
-    console.log('Recording stopped and stored at', uri);
-
-  }
-  const saveToDirectory = async() =>{
-    try{
-      const dirInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory+directoryName);
-      if(!dirInfo.exists){
-        console.log("creating directory...")
-        await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory+directoryName,{intermediates:true})
-      }
-      let newFile = userName.trim();
-      newFile = newFile.replace(" ","_")
-      await FileSystem.moveAsync({
-        from:link,
-        to:`${FileSystem.documentDirectory}${directoryName}/${Date.now()}_${newFile}.m4a`
-      })
-    }catch(err){
-      console.error(err);
-    }
-  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.buttons} >
-  
-        <Button 
-          title={recording ? "Stop Recording":"Start Recording"}
-          color={"black"}
-          onPress={recording ? stopRecording : startRecording}
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen 
+          name="Record" 
+          component={UserInputs}
+          options={{
+            tabBarIcon: 
+              ({focused})=> !focused ? 
+              <MaterialCommunityIcons name="record-circle-outline" size={24} color="black" />:
+              <MaterialCommunityIcons name="record-circle" size={24} color="black" />
+          }}
         />
-      </View>
-      <PlayRecording sound={link}/>
-      <TextInput 
-        style={styles.input}
-        placeholder="enter name"
-        value={userName}
-        onChangeText={ newText => {setName(newText);console.log(newText);}}
-        
-      />
-      {
-        link ?
-      <Button 
-        title='Save Recording'
-        onPress={saveToDirectory}
-      />: null
-      }
-        
-    </SafeAreaView>
+        <Tab.Screen 
+          name="Settings" 
+          component={Settings}
+          options={{
+            tabBarIcon: 
+              ({focused}) => focused ? 
+              <Ionicons name="settings" size={24} color="black" />:
+              <Ionicons name="settings-outline" size={24} color="black" />
+          }}
+        />
+        <Tab.Screen 
+          name="Files"
+          component={Recordings}
+          options={{
+            tabBarIcon:({focused}) => focused ?
+            <Entypo name="folder" size={24} color="black" />:
+            <AntDesign name="folder1" size={24} color="black" />
+
+          }}
+        />
+        </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  input:{
-    color:"white",
-    backgroundColor:"lightblue",
-    fontSize:20,
-    paddingVertical:5,
-    paddingHorizontal:10,
-    width:200,
-    justifyContent:"center",
-    alignItems:"center",
-  },
-  container: {
-    flex:1,
-    backgroundColor: '#000',
-    color:"white",
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  txt:{
-    color:"white",
-  },
-  buttons:{
-    backgroundColor:"lightblue",
-    fontWeight:"bold"
-  }
-});
+
