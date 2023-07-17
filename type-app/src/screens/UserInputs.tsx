@@ -3,16 +3,14 @@ import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 
-const RecordMessage = (): JSX.Element =>{
+const UserInputs = (): JSX.Element =>{
 
   return (
-    <View>
-
+    <SafeAreaView>
       
-      
-    </View>
+    </SafeAreaView>
   )
 }
 
 
-export default RecordMessage;
+export default UserInputs;
