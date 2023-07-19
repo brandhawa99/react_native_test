@@ -3,15 +3,19 @@ import {SafeAreaView, View, Text,StyleSheet} from 'react-native';
 
 type StepsProps = {
   step:number
+  stepTxt:string
   children?:JSX.Element
 }
-const Steps = ({step, children}:StepsProps) =>{
+const Steps = ({step, stepTxt, children}:StepsProps) =>{
 
 return(
   <SafeAreaView style={styles.container}>
-    <View >
-      <Text style={styles.step} >
-        {step}
+    <View style={styles.stepsContainer}>
+      <Text style={[styles.step,styles.stepNumber]} >
+        {step}.
+      </Text>
+      <Text style={styles.step}>
+        {stepTxt}
       </Text>
     </View>
     {
@@ -26,12 +30,24 @@ return(
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:"lightblue",
+    backgroundColor:"pink",
     paddingHorizontal:10,
     paddingVertical: 20,
+    justifyContent:"center",
+
+  },
+  stepsContainer:{
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"center",
+    gap:10,
+    marginBottom:50,
   },
   step:{
-    fontSize:40,
+    fontSize:30,
+  },
+  stepNumber:{
+    fontWeight:"bold"
   }
 })
 
