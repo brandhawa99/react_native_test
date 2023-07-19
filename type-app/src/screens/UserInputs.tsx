@@ -1,18 +1,37 @@
-import React , {useState}from 'react';
-import {View, Text, SafeAreaView, StyleSheet, Button, TextInput} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import React , {useState, useEffect}from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import { Audio } from 'expo-av';
-import PlayRecording from '../components/PlayRecording';
 import * as FileSystem from 'expo-file-system'
 import ensureDirExists from '../utilities/ensureDirExists';
 import Steps from '../components/Steps';
-const UserInputs = (): JSX.Element =>{
+import RecordMsg from '../components/RecordMsg';
+import NameInputs from '../components/NameInput';
+import RecordButtons from '../components/RecordButtons';
+import ClosingPage from '../components/ClosingPage';
+import NavigationButtons from '../components/NavigationButtons'
 
+
+const UserInputs = (): JSX.Element =>{
+  
+  const [sound, setSound] = useState<any>();
   const [audioURI, setAudioURI] = useState<string>("");
   const [recording, setRecording] = useState<any | undefined>();
   const [audioFileName, setAudioFileName] = useState<string>("")
+  const [page, setPage] = useState<number>(1)
 
-  
+
+  const nextPage = () => {
+    if(page === 4){
+      setPage(1)
+    }else{
+      setPage(page + 1);
+    }
+  } 
+  const lastPage = () =>{
+    if(page !== 1){
+      setPage(page - 1);
+    }
+  } 
   const startRecording = async() =>{
     try {
       console.log("Requesting permission...")
@@ -60,30 +79,61 @@ const UserInputs = (): JSX.Element =>{
     }
   }
 
+  async function playSound() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync(
+      {uri:audioURI},
+      {shouldPlay:true}
+      )
+    setSound(sound);
+
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  useEffect(()=>{
+    console.log(audioFileName)
+  },[audioFileName])
+
   return (
     <SafeAreaView style={styles.container}>
-      <Steps step={1}/>
-      <View>
-        <Button
-          title={recording ? "Stop Recording": "Start Recording"}
-          color={"black"}
-          onPress={recording? stopRecording : startRecording}
-        /> 
-      </View>
-      <PlayRecording sound={audioURI}/>
-      <TextInput 
-        placeholder='enter name'
-        value={audioFileName}
-        onChangeText={ newText => {setAudioFileName(newText)}}
-      />
       {
-        audioURI.length ? 
-        <Button 
-          title='Save Recording'
-          onPress={saveToDirectory}
-        />
-        : null
+        page === 1 &&
+          <Steps step={1} stepTxt={"Record Your Message!"}>
+            <RecordMsg 
+              stopFunc={stopRecording}
+              recordFunc={startRecording}
+              playFunc={playSound}
+              isRecording={recording}
+            />
+          </Steps>
       }
+      {
+        page === 2 &&
+          <Steps step={2} stepTxt={"Enter Your Name!"}>
+            <NameInputs setAudioFileName={setAudioFileName} />
+          </Steps>
+      }
+      {
+        page == 3 &&
+          <Steps step={3} stepTxt='Save Your Recording'>
+            <RecordButtons buttonColor={"#94D7E9"} text='Save' press={saveToDirectory} />
+          </Steps>
+      }
+      {
+        page == 4 &&
+        <ClosingPage username={audioFileName}/>
+      }
+      <NavigationButtons next={nextPage} prev={lastPage} />
     </SafeAreaView>
   )
 }
@@ -91,7 +141,9 @@ const UserInputs = (): JSX.Element =>{
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:"lightgreen",
+    justifyContent:"flex-start",
+    alignItems:"stretch",
+    backgroundColor:"black",
   }
 })
 
