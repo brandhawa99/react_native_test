@@ -1,6 +1,7 @@
 import React ,{createContext, useState} from 'react';
 
-const DirContext = createContext<any>(""); 
+export const  DirContext = createContext<any>(""); 
+
 const DirContextProvider = (props:any) =>{
   const [saveTo, setSaveTo] = useState("default"); 
 
