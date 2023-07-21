@@ -2,10 +2,10 @@ import React ,{createContext, useState} from 'react';
 
 const DirContext = createContext<any>(""); 
 const DirContextProvider = (props:any) =>{
-  const [savedTo, setSavedTo] = useState("default"); 
+  const [saveTo, setSaveTo] = useState("default"); 
 
   return(
-    <DirContext.Provider value={{savedTo, setSavedTo}}>
+    <DirContext.Provider value={{saveTo, setSaveTo}}>
       {props.children}
     </DirContext.Provider>
   )
