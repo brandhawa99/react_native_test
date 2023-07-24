@@ -49,7 +49,8 @@ const Recordings = () =>{
         {
           text:"Yes",
           onPress: () =>{
-            FileSystem.deleteAsync(FileSystem.documentDirectory+saveTo+"/"+file,{idempotent:true})
+            FileSystem.deleteAsync(FileSystem.documentDirectory+saveTo+"/"+file,{idempotent:true});
+            getRecordings();
           }
         },
         {
@@ -134,7 +135,7 @@ const Recordings = () =>{
       backgroundColor:"lightgreen",
     },
     playerButtonsContainer:{
-      flexDirection:"row"
+      flexDirection:"row",
     },
     fileContainer:{
       backgroundColor:"pink",
@@ -148,6 +149,7 @@ const Recordings = () =>{
     fileName:{
       fontSize:20,
       fontWeight:"400",
+      flex:1,  
     }
   })
 
