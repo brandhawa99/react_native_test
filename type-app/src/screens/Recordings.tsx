@@ -69,7 +69,7 @@ const Recordings = () =>{
   },[sound])
 
   useEffect(()=>{
-
+    getRecordings;
   },[auth, files])
   
   return(
