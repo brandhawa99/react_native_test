@@ -7,6 +7,7 @@ const ensureDirExists  = async (dirName:string) => {
     if(!dirInfo.exists){
       console.log("creating Directory...");
       await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory+dirName,{intermediates:true})
+      console.log("Directory created");
     }
   } catch (error) {
     
