@@ -1,4 +1,4 @@
-import React , {useState, useEffect}from 'react';
+import React , {useState, useEffect, useContext}from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system'
@@ -9,10 +9,11 @@ import NameInputs from '../components/NameInput';
 import RecordButtons from '../components/RecordButtons';
 import ClosingPage from '../components/ClosingPage';
 import NavigationButtons from '../components/NavigationButtons'
+import { DirContext } from '../components/DIrContextProvider';
 
 
 const UserInputs = (): JSX.Element =>{
-  
+  const {saveTo} = useContext(DirContext); 
   const [sound, setSound] = useState<any>();
   const [audioURI, setAudioURI] = useState<string>("");
   const [recording, setRecording] = useState<any | undefined>();
@@ -64,12 +65,12 @@ const UserInputs = (): JSX.Element =>{
 
   const saveToDirectory = async () =>{
     try {
-      await ensureDirExists("amar");
+      await ensureDirExists(saveTo);
       let newFile = audioFileName.trim();
       newFile = newFile.replace(" ","_");
       await FileSystem.moveAsync({
         from: audioURI,
-        to: `${FileSystem.documentDirectory}amar/${Date.now()}_${newFile}.m4a`
+        to: `${FileSystem.documentDirectory}${saveTo}/${Date.now()}_${newFile}.m4a`
       })
     } catch (error) {
       console.error(error);
@@ -79,7 +80,8 @@ const UserInputs = (): JSX.Element =>{
     }
   }
 
-  async function playSound() {
+
+async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(
       {uri:audioURI},
