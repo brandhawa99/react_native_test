@@ -16,8 +16,8 @@ const Tabs = () =>{
     <NavigationContainer>
       <DirContextProvider >
       <Tab.Navigator screenOptions={{
-        tabBarActiveBackgroundColor:"white",
-        tabBarInactiveBackgroundColor:"white",
+        tabBarActiveBackgroundColor:"#D6CCC2",
+        tabBarInactiveBackgroundColor:"#D6CCC2",
         tabBarAllowFontScaling:true,
       tabBarStyle:{
         backgroundColor:'black',
