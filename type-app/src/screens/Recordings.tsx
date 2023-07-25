@@ -4,6 +4,7 @@ import * as FileSystem from 'expo-file-system';
 import { DirContext } from '../components/DIrContextProvider';
 import Lock from '../screens/Lock'
 import { Audio } from 'expo-av';
+import * as Sharing from 'expo-sharing'
 const Recordings = () =>{
 
   let audioUri = ""
@@ -69,7 +70,7 @@ const Recordings = () =>{
   },[sound])
 
   useEffect(()=>{
-    getRecordings;
+    getRecordings();
   },[auth, files])
   
   return(
@@ -83,6 +84,12 @@ const Recordings = () =>{
           <Button 
             title='Update List'
             onPress={getRecordings}
+          />
+          <Button 
+            title='Export Recordings'
+            onPress={() =>{
+                Sharing.shareAsync(FileSystem.documentDirectory+saveTo,{dialogTitle:`export ${saveTo}`,UTI:"Folders"})
+            }}
           />
 
           <View>
