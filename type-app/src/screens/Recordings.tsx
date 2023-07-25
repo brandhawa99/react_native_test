@@ -4,6 +4,7 @@ import * as FileSystem from 'expo-file-system';
 import { DirContext } from '../components/DIrContextProvider';
 import Lock from '../screens/Lock'
 import { Audio } from 'expo-av';
+import * as Sharing from 'expo-sharing'
 const Recordings = () =>{
 
   let audioUri = ""
@@ -49,7 +50,8 @@ const Recordings = () =>{
         {
           text:"Yes",
           onPress: () =>{
-            FileSystem.deleteAsync(FileSystem.documentDirectory+saveTo+"/"+file,{idempotent:true})
+            FileSystem.deleteAsync(FileSystem.documentDirectory+saveTo+"/"+file,{idempotent:true});
+            getRecordings();
           }
         },
         {
@@ -68,7 +70,7 @@ const Recordings = () =>{
   },[sound])
 
   useEffect(()=>{
-
+    getRecordings();
   },[auth, files])
   
   return(
@@ -82,6 +84,12 @@ const Recordings = () =>{
           <Button 
             title='Update List'
             onPress={getRecordings}
+          />
+          <Button 
+            title='Export Recordings'
+            onPress={() =>{
+                Sharing.shareAsync(FileSystem.documentDirectory+saveTo,{dialogTitle:`export ${saveTo}`,UTI:"Folders"})
+            }}
           />
 
           <View>
@@ -134,7 +142,7 @@ const Recordings = () =>{
       backgroundColor:"lightgreen",
     },
     playerButtonsContainer:{
-      flexDirection:"row"
+      flexDirection:"row",
     },
     fileContainer:{
       backgroundColor:"pink",
@@ -148,6 +156,7 @@ const Recordings = () =>{
     fileName:{
       fontSize:20,
       fontWeight:"400",
+      flex:1,  
     }
   })
 

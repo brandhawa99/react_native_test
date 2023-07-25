@@ -1,5 +1,5 @@
 import React , {useState, useEffect, useContext}from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system'
 import ensureDirExists from '../utilities/ensureDirExists';
@@ -127,9 +127,11 @@ async function playSound() {
       }
       {
         page == 3 &&
-          <Steps step={3} stepTxt='Save Your Recording'>
-            <RecordButtons buttonColor={"#94D7E9"} text='Save' press={saveToDirectory} />
-          </Steps>
+          <View>
+            <Steps step={3} stepTxt='Save Your Recording'>
+              <RecordButtons buttonColor={"#94D7E9"} text='Save' press={saveToDirectory} />
+            </Steps>     
+          </View>
       }
       {
         page == 4 &&
