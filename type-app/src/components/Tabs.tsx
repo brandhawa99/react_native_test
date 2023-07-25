@@ -17,12 +17,14 @@ const Tabs = () =>{
       <DirContextProvider >
       <Tab.Navigator screenOptions={{
         tabBarActiveBackgroundColor:"white",
-        tabBarInactiveBackgroundColor:"black",
+        tabBarInactiveBackgroundColor:"white",
+        tabBarAllowFontScaling:true,
       tabBarStyle:{
-        backgroundColor:'black'
+        backgroundColor:'black',
         },
             headerStyle:{
               backgroundColor:"black",
+
             },
             headerTitleStyle:{
               color:"white",
