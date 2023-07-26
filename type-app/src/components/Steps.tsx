@@ -30,7 +30,7 @@ return(
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:"pink",
+    backgroundColor:"#D5BDAF",
     paddingHorizontal:10,
     paddingVertical: 20,
     justifyContent:"center",

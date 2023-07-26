@@ -127,11 +127,9 @@ async function playSound() {
       }
       {
         page == 3 &&
-          <View>
             <Steps step={3} stepTxt='Save Your Recording'>
-              <RecordButtons buttonColor={"#94D7E9"} text='Save' press={saveToDirectory} />
+              <RecordButtons buttonColor={"#E3D5CA"} text='Save' press={saveToDirectory} />
             </Steps>     
-          </View>
       }
       {
         page == 4 &&
@@ -147,7 +145,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:"flex-start",
     alignItems:"stretch",
-    backgroundColor:"black",
+    backgroundColor:"#D5BDAF",
   }
 })
 
