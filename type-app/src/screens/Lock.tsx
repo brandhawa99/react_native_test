@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import {Button, View, Text, TextInput, StyleSheet} from 'react-native'
+import { Link } from '@react-navigation/native'
 
 const Lock = (props:any) =>{
-  const {setAuth} = props;
+
+  const {unLock} = props;
   const [passCheck , setPassCheck] = useState<String>();
   const pass: String = "2015"
   const checkPass =() =>{
     if(passCheck == pass){
-      setAuth(true); 
-    }else{
-      setAuth(false);  
+      unLock()
     }
   }
 
@@ -29,7 +29,9 @@ const Lock = (props:any) =>{
         title="Enter"
         onPress={checkPass}
       />
-      
+      <Link to={{screen:"Record"}}>
+        GO BACK
+      </Link>
     </View>
   )
 }
