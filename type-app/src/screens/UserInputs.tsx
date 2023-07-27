@@ -79,9 +79,6 @@ const UserInputs = (): JSX.Element|null =>{
       nextPage();
     } catch (error) {
       console.error(error);
-    }finally{
-      setAudioURI("");
-      setAudioFileName("")
     }
   }
 
