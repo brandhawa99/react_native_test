@@ -17,16 +17,17 @@ const Tabs = () =>{
       <Tab.Navigator screenOptions={{
         tabBarActiveBackgroundColor:"#D6CCC2",
         tabBarInactiveBackgroundColor:"#D6CCC2",
+        tabBarActiveTintColor:"black",
         tabBarAllowFontScaling:true,
       tabBarStyle:{
         backgroundColor:'black',
         },
             headerStyle:{
-              backgroundColor:"black",
+              backgroundColor:"#d5bdaf",
 
             },
             headerTitleStyle:{
-              color:"white",
+              color:"black",
               fontSize:25,
               fontWeight:"bold",
             }
