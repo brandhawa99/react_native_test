@@ -2,27 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import {SafeAreaView,Alert,  Text, View, StyleSheet, ScrollView, Pressable} from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import { DirContext } from '../components/DIrContextProvider';
-import Lock from '../screens/Lock'
 import { Audio } from 'expo-av';
 import * as Sharing from 'expo-sharing'
 import IconButton from '../components/IconButton';
 import { AntDesign } from '@expo/vector-icons';
 import VoiceFile from '../components/VoiceFile'
 import { MaterialIcons } from '@expo/vector-icons';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FilesModal from '../components/FilesModal';
+import Lock from './Lock';
 
 
 
 const Recordings = () =>{
 
   const {saveTo, setSaveTo} = useContext(DirContext);
-  const [auth, setAuth] = useState(false); 
+  const [auth, setAuth] = useState(true); 
   const [files, setFiles] = useState<any>([]); 
   const [sound, setSound] = useState<any>(""); 
   const [isVisible, setVisible] = useState<boolean>(false)
   const closeModal = () =>{
     setVisible(false);
+  }
+
+  const unLock = () =>{
+    setAuth(false);
   }
 
   
@@ -85,8 +88,10 @@ const Recordings = () =>{
   },[sound])
 
   useEffect(()=>{
+
     getRecordings();
   },[auth, files])
+
   
   return(
     <SafeAreaView style={styles.container}>
@@ -118,6 +123,12 @@ const Recordings = () =>{
             }}
             >
               <AntDesign name="export" size={32} color="black" />
+            </IconButton>
+
+            <IconButton onPress={() =>{
+              setAuth(true);
+            }}>
+              <AntDesign name="lock" size={24} color="black" />
             </IconButton>
             
             <IconButton   
@@ -151,7 +162,7 @@ const Recordings = () =>{
           </View>
         </ScrollView>
         :
-        <Lock setAuth={setAuth}/>
+        <Lock unLock={unLock}/>
       }
     </SafeAreaView>
   ) 
