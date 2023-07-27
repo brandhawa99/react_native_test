@@ -10,14 +10,8 @@ import RecordButtons from '../components/RecordButtons';
 import ClosingPage from '../components/ClosingPage';
 import NavigationButtons from '../components/NavigationButtons'
 import { DirContext } from '../components/DIrContextProvider';
-import {useFonts} from 'expo-font';
 
 const UserInputs = (): JSX.Element|null =>{
-
-
-  const [fontLoaded] = useFonts({
-    'GreatVibes': require("../../assets/fonts/GreatVibes-Regular.ttf")
-  });
  
   const {saveTo} = useContext(DirContext); 
   const [sound, setSound] = useState<any>();
@@ -25,9 +19,6 @@ const UserInputs = (): JSX.Element|null =>{
   const [recording, setRecording] = useState<any | undefined>();
   const [audioFileName, setAudioFileName] = useState<string>("")
   const [page, setPage] = useState<number>(4)
-
-  
-
 
   const reset = () => {
     setSound(undefined);
