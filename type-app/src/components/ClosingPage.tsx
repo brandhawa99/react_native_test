@@ -1,9 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-
-
 const ClosingPage = ({username}:any) =>{
+
 
   return(
     <View style={styles.container}>
@@ -20,10 +19,12 @@ const styles = StyleSheet.create({
     backgroundColor:"#D5BDAF"
   },
   text:{
-    fontSize:30,
+    paddingTop:30,
+    fontSize:40,
     fontWeight:'400',
     lineHeight:35,
-    textAlign:"center"
+    textAlign:"center",
+    fontFamily:"GreatVibes",
   }
 })
 export default ClosingPage

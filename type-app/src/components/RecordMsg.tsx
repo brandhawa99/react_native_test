@@ -3,7 +3,8 @@ import {View, StyleSheet} from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import RecordButtons from './RecordButtons';
 
-const RecordMsg = ({recordFunc, playFunc, stopFunc, isRecording}:any) =>{
+const RecordMsg = ({recordFunc, playFunc, stopFunc, isRecording, uri}:any) =>{
+
   
   return(
     <View>
@@ -19,9 +20,13 @@ const RecordMsg = ({recordFunc, playFunc, stopFunc, isRecording}:any) =>{
                 <Entypo name='controller-record' size={40}/>
               </RecordButtons>
           }
-          <RecordButtons text="Play Recording" press={playFunc} buttonColor='#90EE90'>
-            <Entypo  name="controller-play" size={40}/>
-          </RecordButtons>
+          {
+            uri.length>0 ?
+              <RecordButtons text="Play Recording" press={playFunc} buttonColor='#90EE90'>
+                <Entypo  name="controller-play" size={40}/>
+              </RecordButtons>
+            : null
+          }
         </View>
     </View>
   )

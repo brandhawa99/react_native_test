@@ -10,17 +10,30 @@ import RecordButtons from '../components/RecordButtons';
 import ClosingPage from '../components/ClosingPage';
 import NavigationButtons from '../components/NavigationButtons'
 import { DirContext } from '../components/DIrContextProvider';
+import {useFonts} from 'expo-font';
+
+const UserInputs = (): JSX.Element|null =>{
 
 
-const UserInputs = (): JSX.Element =>{
+  const [fontLoaded] = useFonts({
+    'GreatVibes': require("../../assets/fonts/GreatVibes-Regular.ttf")
+  });
+ 
   const {saveTo} = useContext(DirContext); 
   const [sound, setSound] = useState<any>();
   const [audioURI, setAudioURI] = useState<string>("");
   const [recording, setRecording] = useState<any | undefined>();
   const [audioFileName, setAudioFileName] = useState<string>("")
-  const [page, setPage] = useState<number>(1)
+  const [page, setPage] = useState<number>(4)
+
+  
 
 
+  const reset = () => {
+    setSound(undefined);
+    setAudioURI("");
+    setAudioFileName("");
+  }
   const nextPage = () => {
     if(page === 4){
       setPage(1)
@@ -72,6 +85,7 @@ const UserInputs = (): JSX.Element =>{
         from: audioURI,
         to: `${FileSystem.documentDirectory}${saveTo}/${Date.now()}_${newFile}.m4a`
       })
+      nextPage();
     } catch (error) {
       console.error(error);
     }finally{
@@ -79,6 +93,7 @@ const UserInputs = (): JSX.Element =>{
       setAudioFileName("")
     }
   }
+
 
 
 async function playSound() {
@@ -104,10 +119,10 @@ async function playSound() {
 
   useEffect(()=>{
     console.log(audioFileName)
-  },[audioFileName])
+  },[audioFileName, audioURI])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       {
         page === 1 &&
           <Steps step={1} stepTxt={"Record Your Message!"}>
@@ -116,6 +131,7 @@ async function playSound() {
               recordFunc={startRecording}
               playFunc={playSound}
               isRecording={recording}
+              uri={audioURI}
             />
           </Steps>
       }
@@ -135,7 +151,7 @@ async function playSound() {
         page == 4 &&
         <ClosingPage username={audioFileName}/>
       }
-      <NavigationButtons next={nextPage} prev={lastPage} />
+      <NavigationButtons next={nextPage} prev={lastPage} pageNum={page} name={audioFileName} reset={reset} />
     </SafeAreaView>
   )
 }

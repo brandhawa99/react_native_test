@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   step:{
     fontSize:30,
+    fontFamily:"GreatVibes"
   },
   stepNumber:{
     fontWeight:"bold"
