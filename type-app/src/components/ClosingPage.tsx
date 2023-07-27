@@ -1,7 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const ClosingPage = ({username}:any) =>{
+type ClosingPageType ={
+  username: string;
+}
+
+const ClosingPage = ({username}:ClosingPageType) =>{
 
 
   return(
@@ -22,7 +26,7 @@ const styles = StyleSheet.create({
     paddingTop:30,
     fontSize:40,
     fontWeight:'400',
-    lineHeight:35,
+    lineHeight:50,
     textAlign:"center",
     fontFamily:"GreatVibes",
   }
