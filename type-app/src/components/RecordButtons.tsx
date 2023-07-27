@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize:21,
-    fontWeight:"400"
+    fontWeight:"400",
+    fontFamily:"GreatVibes"
   }
 })
 
