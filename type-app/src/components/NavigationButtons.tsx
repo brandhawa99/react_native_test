@@ -85,18 +85,10 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
     backgroundColor:"#EDEDE9",
-    borderRadius:100,
+    borderRadius:20,
+    borderWidth:2,
     height:100,
     width:100,
     shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
-
-elevation: 5,
-
   }
 })
