@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingVertical:8,
     textAlign:"center",
     borderRadius:15,
-    borderWidth: 3,
+    borderWidth: 2,
   }
 }) 
 
