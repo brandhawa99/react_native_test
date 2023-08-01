@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import {Button, View, Text, TextInput, StyleSheet} from 'react-native'
 import { Link } from '@react-navigation/native'
 
-const Lock = (props:any) =>{
+type LockType = {
+  unLock : () => void;
+}
 
-  const {unLock} = props;
+const Lock = ({unLock}: LockType) =>{
+
   const [passCheck , setPassCheck] = useState<String>();
   const pass: String = "2015"
   const checkPass =() =>{
