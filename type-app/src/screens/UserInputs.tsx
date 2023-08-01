@@ -18,7 +18,8 @@ const UserInputs = (): JSX.Element|null =>{
   const [audioURI, setAudioURI] = useState<string>("");
   const [recording, setRecording] = useState<any | undefined>();
   const [audioFileName, setAudioFileName] = useState<string>("")
-  const [page, setPage] = useState<number>(4)
+  const [page, setPage] = useState<number>(2)
+  const [isSaving, setIsSaving] = useState<boolean>(false)
 
   const reset = () => {
     setSound(undefined);
@@ -69,6 +70,7 @@ const UserInputs = (): JSX.Element|null =>{
 
   const saveToDirectory = async () =>{
     try {
+      setIsSaving(true);
       await ensureDirExists(saveTo);
       let newFile = audioFileName.trim();
       newFile = newFile.replace(" ","_");
@@ -76,7 +78,10 @@ const UserInputs = (): JSX.Element|null =>{
         from: audioURI,
         to: `${FileSystem.documentDirectory}${saveTo}/${Date.now()}_${newFile}.m4a`
       })
-      nextPage();
+      setTimeout(()=>{
+        setIsSaving(false);
+        nextPage();
+      },1200)
     } catch (error) {
       console.error(error);
     }
@@ -132,19 +137,27 @@ async function playSound() {
       {
         page == 3 &&
             <Steps step={3} stepTxt='Save Your Recording'>
-              <RecordButtons buttonColor={"#E3D5CA"} text='Save' press={saveToDirectory} />
+              {!isSaving ? 
+                <RecordButtons buttonColor={"#E3D5CA"} text='Save' press={saveToDirectory} />
+                :
+                <Text style={styles.saving}>Saving....</Text>
+              }
+              
             </Steps>     
       }
       {
         page == 4 &&
         <ClosingPage username={audioFileName}/>
       }
-      <NavigationButtons next={nextPage} prev={lastPage} pageNum={page} name={audioFileName} reset={reset} />
+      <NavigationButtons next={nextPage} prev={lastPage} pageNum={page} name={audioFileName} reset={reset} sound={sound} />
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  saving:{
+    alignSelf:'center',
+  },
   container:{
     flex:1,
     justifyContent:"flex-start",
