@@ -81,7 +81,7 @@ const UserInputs = (): JSX.Element|null =>{
       setTimeout(()=>{
         setIsSaving(false);
         nextPage();
-      },700)
+      },1200)
     } catch (error) {
       console.error(error);
     }
