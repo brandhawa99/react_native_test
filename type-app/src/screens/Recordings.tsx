@@ -13,7 +13,7 @@ import Lock from './Lock';
 
 
 
-const Recordings = () =>{
+const Recordings = ():JSX.Element =>{
 
   const {saveTo, setSaveTo} = useContext(DirContext);
   const [auth, setAuth] = useState(true); 
