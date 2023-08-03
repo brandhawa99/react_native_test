@@ -6,7 +6,12 @@ import * as FileSystem from 'expo-file-system'
 import { DirContext } from './DIrContextProvider';
 import ensureDirExists from '../utilities/ensureDirExists';
 
-const FilesModal = ({isVisible, onClose}:any) => {
+type FilesModalType = {
+  isVisible: boolean,
+  onClose: () => void,
+}
+
+const FilesModal = ({isVisible, onClose}:FilesModalType) => {
   const [folders, setFolders] = useState<any>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false)
   const [fileName, setFileName] = useState<string>("");
