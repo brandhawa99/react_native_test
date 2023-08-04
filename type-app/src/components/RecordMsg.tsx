@@ -3,7 +3,16 @@ import {View, StyleSheet} from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import RecordButtons from './RecordButtons';
 
-const RecordMsg = ({recordFunc, playFunc, stopFunc, isRecording, uri}:any) =>{
+
+type RecordMsgType = {
+  uri: string; 
+  recordFunc : () => void;
+  playFunc : () => void;
+  stopFunc : () => void;
+  isRecording : boolean; 
+}
+
+const RecordMsg = ({recordFunc, playFunc, stopFunc, isRecording, uri}:RecordMsgType) =>{
 
   
   return(
