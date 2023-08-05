@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system'
 
 
-const ensureDirExists  = async (dirName:string) => {
+const ensureDirExists  = async (dirName:string): Promise<void> => {
   try {
     const dirInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory+dirName) 
     if(!dirInfo.exists){
