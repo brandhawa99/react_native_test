@@ -8,20 +8,19 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode":"cover",
+      "resizeMode": "cover",
       "backgroundColor": "#92042"
     },
     "plugins": [
       [
-
         "expo-av",
         {
-          "microphonePermission":"Allow AVAPP to access your microphone",
+          "microphonePermission": "Allow AVAPP to access your microphone"
         }
       ]
     ],
     "experiments": {
-      "tsconfigPaths": true,
+      "tsconfigPaths": true
     },
     "assetBundlePatterns": [
       "**/*"
@@ -29,7 +28,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "userInterfaceStyle":[
+        "userInterfaceStyle": [
           "audio"
         ]
       }
@@ -38,10 +37,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "package": "com.bawa14.typeapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "84476eef-9b86-483f-9e9f-0dc60bae3725"
+      }
     }
   }
 }
