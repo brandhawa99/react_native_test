@@ -96,26 +96,29 @@ const FilesModal = ({isVisible, onClose}:FilesModalType) => {
               <RefreshControl 
                 refreshing={refreshing} 
                 onRefresh={onRefresh}
-                colors={[""]}
+                colors={["black"]}
                 tintColor={"black"}
               />
           }>
             <View style={styles.folderView}>
               {
                 folders.map((folder:string, index:number) =>{
-                  return(
-                    <Pressable style={folder=== saveTo? [styles.folder, styles.current]:styles.folder} key={index}
-                      onPress={() =>{
-                        setSaveTo(folder);
-                      }}
-                      onLongPress={()=>{
-                        showConfirmDialog(folder);
-                      }}
-                    >
-                      <AntDesign name="folder1" size={24} color="black" />
-                      <Text>{folder}</Text>
-                    </Pressable>
-                    )
+                  if(!folder.includes(".")){
+                    return(
+                      <Pressable style={folder=== saveTo? [styles.folder, styles.current]:styles.folder} key={index}
+                        onPress={() =>{
+                          setSaveTo(folder);
+                        }}
+                        onLongPress={()=>{
+                          showConfirmDialog(folder);
+                        }}
+                      >
+                        <AntDesign name="folder1" size={24} color="black" />
+                        <Text>{folder}</Text>
+                      </Pressable>
+                      )
+                  }
+                  return null;
                   })
                 }
             </View>
