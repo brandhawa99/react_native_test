@@ -18,7 +18,7 @@ const UserInputs = (): JSX.Element|null =>{
   const [audioURI, setAudioURI] = useState<string>("");
   const [recording, setRecording] = useState<any | undefined>();
   const [audioFileName, setAudioFileName] = useState<string>("")
-  const [page, setPage] = useState<number>(2)
+  const [page, setPage] = useState<number>(4)
   const [isSaving, setIsSaving] = useState<boolean>(false)
 
   const reset = () => {
@@ -68,6 +68,13 @@ const UserInputs = (): JSX.Element|null =>{
     console.log("Recording stopped and store at ",uri);
   }
 
+  const saveAndNext = () =>{
+    setTimeout(()=>{
+      setIsSaving(false);
+      nextPage();
+    },1200);    
+  }
+
   const saveToDirectory = async () =>{
     try {
       setIsSaving(true);
@@ -78,10 +85,7 @@ const UserInputs = (): JSX.Element|null =>{
         from: audioURI,
         to: `${FileSystem.documentDirectory}${saveTo}/${Date.now()}_${newFile}.m4a`
       })
-      setTimeout(()=>{
-        setIsSaving(false);
-        nextPage();
-      },1200)
+      saveAndNext();
     } catch (error) {
       console.error(error);
     }

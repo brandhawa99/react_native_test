@@ -6,7 +6,12 @@ import * as FileSystem from 'expo-file-system'
 import { DirContext } from './DIrContextProvider';
 import ensureDirExists from '../utilities/ensureDirExists';
 
-const FilesModal = ({isVisible, onClose}:any) => {
+type FilesModalType = {
+  isVisible: boolean,
+  onClose: () => void,
+}
+
+const FilesModal = ({isVisible, onClose}:FilesModalType) => {
   const [folders, setFolders] = useState<any>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false)
   const [fileName, setFileName] = useState<string>("");
@@ -91,26 +96,29 @@ const FilesModal = ({isVisible, onClose}:any) => {
               <RefreshControl 
                 refreshing={refreshing} 
                 onRefresh={onRefresh}
-                colors={[""]}
+                colors={["black"]}
                 tintColor={"black"}
               />
           }>
             <View style={styles.folderView}>
               {
                 folders.map((folder:string, index:number) =>{
-                  return(
-                    <Pressable style={folder=== saveTo? [styles.folder, styles.current]:styles.folder} key={index}
-                      onPress={() =>{
-                        setSaveTo(folder);
-                      }}
-                      onLongPress={()=>{
-                        showConfirmDialog(folder);
-                      }}
-                    >
-                      <AntDesign name="folder1" size={24} color="black" />
-                      <Text>{folder}</Text>
-                    </Pressable>
-                    )
+                  if(!folder.includes(".")){
+                    return(
+                      <Pressable style={folder=== saveTo? [styles.folder, styles.current]:styles.folder} key={index}
+                        onPress={() =>{
+                          setSaveTo(folder);
+                        }}
+                        onLongPress={()=>{
+                          showConfirmDialog(folder);
+                        }}
+                      >
+                        <AntDesign name="folder1" size={24} color="black" />
+                        <Text>{folder}</Text>
+                      </Pressable>
+                      )
+                  }
+                  return null;
                   })
                 }
             </View>
