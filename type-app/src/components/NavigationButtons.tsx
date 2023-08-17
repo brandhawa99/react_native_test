@@ -16,7 +16,6 @@ export default function NavigationButtons({next ,prev, pageNum, name, reset, sou
     case 1: return(
         <View style={styles.container}>
           {
-            sound &&
             <Pressable style={styles.textButton}onPress={next}>
               <Ionicons name="chevron-forward" size={30} color="black" /> 
             </Pressable>
