@@ -19,3 +19,12 @@ The biggest challenge I faced when making this project was making it extremely s
 Another challenge I faced was learning React Native quickly. Luckily it works almost exactly like react with a UI framework. Also the documentation was very straight foreword so it was very easy to use it's SDK.
 
 ### How to Install and Run the Project
+
+1. Make sure you have node version 18 or greater
+2. Clone the Repository
+3. Run `npm install` to download all of the packages
+4. Download Expo Go on your mobile device.
+5. Run `npm run start`
+6. Make sure your mobile device is one the same network as your laptop
+7. You should see the wedspeak under the development server section press on it and wait for it to compile for your device.
+8. Use the App.
