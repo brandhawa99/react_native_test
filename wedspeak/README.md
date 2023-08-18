@@ -1,6 +1,8 @@
 # WedSpeak
 
 ## Description
+![Screenshot 2023-08-17 203135](https://github.com/brandhawa99/react_native_test/assets/35308786/b1db2bea-bdea-4575-8525-70443b9a0011)
+
 
 ### What is it
 
